@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "mac": "source .env & node app.js"
+    "start": "ts-node app.ts",
+    "mac": "source .env & ts-node app.ts"
   },
   "repository": {
     "type": "git",
