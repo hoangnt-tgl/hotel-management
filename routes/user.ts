@@ -8,11 +8,9 @@ import { User } from '../models/user'
 const SECRET = process.env.SECRET;
 
 router.post('/register', function (req:any, res:any, next:any) {
-    var email = req.body.email
+    var email = req.body.username
     var lname = req.body.lname
     var fname = req.body.fname
-    var dob = req.body.dob
-    var phone = req.body.phone
     var password = req.body.password
 
     UserModel.getUserByEmail(email, function (err:any, user:any) {
@@ -21,7 +19,7 @@ router.post('/register', function (req:any, res:any, next:any) {
             res.json({ success: false, param: 'email', msg: 'Email already exists' });
         }
         else {
-            var newUser = new User('', email, fname, lname, 0, '', dob, phone, 0, password)
+            var newUser = new User('', email, fname, lname, 0, '', '', '', 0, password)
             newUser.createUser(newUser, function (err:any, user:any) {
                 if (err) res.status(500).json(err)
                 else {

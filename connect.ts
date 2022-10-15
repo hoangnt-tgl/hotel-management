@@ -9,7 +9,7 @@ const DATABASE = process.env.DATABASE
 // const HOST = "34.132.211.254"
 // const USER = "root"
 // const PASS = "hoang1234"
-// const DATABASE = "online_shopping"
+// const DATABASE = "HotelReservation"
 
 module.exports.connectDB = function (callback:any){
     const conn = mysql.createConnection({

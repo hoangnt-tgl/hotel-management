@@ -1,0 +1,804 @@
+/*=====================
+    28.Dark CSS start
+==========================*/
+
+body {
+    &.dark {
+        background-color: $dark-body;
+        transition: all 0.3s ease;
+        color: $white-5;
+        .custom-select {
+            background-color: $dark-body;
+            border-color: $dark-border;
+        }
+        label {
+            color: $white-5;
+        }
+        .col-form-label {
+            color: $white-5;
+        }
+        .right-sidebar {
+            background-color: $dark-body;
+            box-shadow: 0 0 9px rgba($dark-border, 36%);
+            .friend-list-search {
+                background: $dark-top;
+                input {
+                    background-color: $dark-body;
+                    border-color: $dark-border;
+                }
+            }
+        }
+        .chat-box {
+            .about {
+                .name {
+                    color: $white-5;
+                }
+            }
+        }
+        .tab2-card {
+            .nav-tabs {
+                .nav-link {
+                    color: $white-5;
+                    &.active, &:focus, &:hover {
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+        .needs-validation {
+            .form-group {
+                label {
+                    color: $white-5;
+                }
+            }
+            textarea {
+                border-color: $dark-border;
+                color: $white-5;
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+        .quillWrapper {
+            .ql-snow {
+                .ql-stroke {
+                    stroke: $white-5;
+                }
+            }
+        }
+        .ql-snow {
+            .ql-fill, .ql-stroke.ql-fill {
+                fill: $white-5;
+            }
+            .ql-picker {
+                color: $white-5;
+            }
+            .ql-picker-options {
+                background-color: $dark-body;
+            }
+        }
+        .ql-toolbar {
+            &.ql-snow {
+                .ql-picker {
+                    &.ql-expanded {
+                        .ql-picker-options {
+                            border-color: $dark-border;
+                        }
+                    }
+                }
+            }
+        }
+        .ql-container {
+            &.ql-snow {
+                border-color: $dark-border;
+            }
+        }
+        textarea {
+            background: $dark-body;
+        }
+        .ql-toolbar {
+            &.ql-snow {
+                border-color: $dark-border;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .page-wrapper {
+                .page-main-header {
+                    .main-header-right {
+                        .nav-right {
+                            > ul {
+                                background-color: $dark-body;
+                                box-shadow: 0 2px 2px 2px $dark-border;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dark {
+    .custom-theme {
+        li {
+            background-color: $dark-top;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0 ,0, 0.5);
+        }
+    }
+    h1 {
+        color: $white;
+    }
+    h2 {
+        color: $white-1;
+    }
+    h3 {
+        color: $white-2;
+    }
+    h4 {
+        color: $white-3;
+    }
+    h5 {
+        color: $white-4;
+    }
+    h6 {
+        color: $white-5;
+    }
+    p {
+        color: $white-5;
+    }
+    li {
+        color: $white-5;
+    }
+    a {
+        color: $dark-link;
+        &.btn-primary {
+            color: $white;
+        }
+    }
+    .page-link {
+        background-color: $dark-body;
+        transition: all 0.3s ease;
+        border-color: $dark-border;
+    }
+    .page-item {
+        &.disabled {
+            .page-link {
+                background-color: $dark-top;
+                border-color: $dark-border;
+            }
+        }
+        &.active {
+            .page-link {
+                border-color: $dark-border;
+                color: $white-5;
+            }
+        }
+    }
+    .light-layout {
+        background-color: $dark-top;
+        transition: all 0.3s ease;
+    }
+    .form-control {
+        color: $white-5;
+        background-color: $dark-body;
+        transition: all 0.3s ease;
+        border: 1px solid $dark-border;
+    }
+    .btn-solid {
+        color: $white !important;
+        &:hover {
+            color: $dark-font !important;
+        }
+    }
+    select {
+        color: $white-5;
+    }
+    option {
+        background-color: $dark-body;
+        transition: all 0.3s ease;
+    }
+    .border-section {
+        border-color: $dark-border;
+    }
+    .pixelstrap {
+        a,
+        &:hover,
+        &:active {
+            color: $white-1;
+        }
+    }
+    .sm-vertical {
+        background-color: $dark-top;
+        transition: all 0.3s ease;
+    }
+    .pixelstrap {
+        ul {
+            background: $dark-top;
+            box-shadow: none;
+            a {
+                color: $white-3;
+                &:hover,
+                &:focus,
+                &:active,
+                &.highlighted {
+                    color: $white-3;
+                }
+            }
+        }
+    }
+    .pixelstrap {
+        .home-menu,
+        .feature-menu,
+        .category-menu,
+        .full-mega-menu,
+        .clothing-menu {
+            box-shadow: 0 0 1px 0 $dark-body;
+        }
+    }
+    .onhover-div {
+        >div {
+            img {
+                filter: brightness(100);
+            }
+        }
+        .show-div {
+            background-color: $dark-top;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+    }
+    .order-graph {
+        h6 {
+            color: $white-5;
+        }
+        .order-graph-bottom {
+            h6 {
+                span {
+                    color: $white-5;
+                }
+            }
+        }
+    }
+    .table {
+        color: $white-5;
+        .thead-light {
+            th {
+                color: $white-5;
+            }
+        }
+    }
+    .table-hover {
+        tbody {
+            tr {
+                &:hover {
+                    color: $white-5;
+                }
+            }
+        }
+    }
+    .table.b-table {
+        >tbody {
+            >.table-active {
+                background-color: #1d1b1b;
+                >th {
+                    background-color: #1d1b1b;
+                }
+                >td {
+                    background-color: #1d1b1b;
+                }
+            }
+        }
+        &.table-hover {
+            >tbody {
+                >tr.table-active {
+                    &:hover {
+                        td {
+                            color: $white-5;
+                        }
+                        th {
+                            color: $white-5;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .datatable-vue {
+        .table {
+            .thead-light {
+              th {
+                background-color: $dark-top;
+                color: $white-5;
+              }
+            }
+        }
+        .table-striped {
+            tbody {
+                tr {
+                    &:nth-child(odd) {
+                        background-color: $dark-border;
+                    }
+                    &:nth-child(even) {
+                        background-color: $dark-top;
+                    }
+                }
+            }
+        }
+        .table-bordered {
+            th, td {
+                border-color: $dark-border;
+            }
+        }
+    }
+    .apexcharts-canvas {
+        .apexcharts-yaxis-texts-g, .apexcharts-xaxis-texts-g {
+            text {
+                fill: $white-5;
+            }
+        }
+        .apexcharts-gridline {
+            stroke: rgba($black, 0.2);
+        }
+    }
+    .small-chartjs, .sales-apex-chart {
+        .apexcharts-canvas {
+            .apexcharts-gridline {
+                stroke: none;
+            }
+        }
+    }
+    footer {
+        background-color: $dark-body;
+        border-color: $dark-border;
+    }
+    .modal-footer {
+        background-color: $dark-top;
+    }
+    .sales-carousel {
+        .value-graph {
+            h3 {
+                color: $white-2; 
+            }
+        }
+    }
+    .nav-menus {
+        .search-form {
+            input  {
+                background-color: $dark-top;
+                border-color: $dark-border;
+                color: $dark-link;
+            }
+        }
+        .onhover-dropdown {
+            &:hover {
+                .onhover-show-div {
+                    &:before {
+                        border-bottom: 7px solid $dark-top;
+                    }
+                }
+            }
+        }
+    }
+    .txt-dark {
+        color: $dark-link !important;
+    }
+    ul.notification-dropdown {
+        &.onhover-show-div {
+            li {
+                border-bottom: 1px solid $dark-border;  
+                &:hover {
+                    background-color: $dark-body;
+                }
+            }
+        }
+    }
+    .page-main-header {
+        .main-header-right {
+            .nav-right {
+                > ul {
+                    > li {
+                        border-color: $dark-border;
+                        &:first-child {
+                            .search-form {
+                                .form-group {
+                                    &:before {
+                                        background: $dark-border;
+                                    }
+                                }
+                            }
+                        }
+                        &:nth-child(5) {
+                            border-right-color: $dark-border;
+                        }
+                    }
+                }
+                .profile-dropdown {
+                    li {
+                        a {
+                            color: $dark-link;
+                            svg {
+                                color: $dark-link;
+                                path, line {
+                                    color: $dark-link !important;
+                                }
+                                polyline {
+                                    color: $dark-link;
+                                }
+                            }
+                        }
+                    }
+                }
+                .language-dropdown {
+                    li {
+                        a {
+                            color: $dark-link;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .page-wrapper {
+        .page-main-header {
+            background-color: $dark-body;
+        }
+        .page-body-wrapper {
+            .page-sidebar {
+                background: $dark-body;
+                .sidebar-menu {
+                    .sidebar-header {
+                        color: $dark-link;
+                    }
+                    .sidebar-submenu {
+                        > li {
+                            &.active {
+                                > a {
+                                    color: $dark-link;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .page-header {
+                .row {
+                    h3 {
+                        color: $white-5; 
+                    }
+                }
+            }
+            .page-body {
+                background-color: $dark-top;
+            }
+        }
+    }
+    .breadcrumb-item {
+        &.active {
+            color: $white-3;
+        }
+    }
+    .main-menu {
+        .menu-left {
+            .navbar {
+                i {
+                    color: $grey-about;
+                }
+            }
+        }
+        .menu-right {
+            .icon-nav {
+                .onhover-div {
+                    .show-div {
+                        &.setting {
+                            h6 {
+                                color: $white-5;
+                            }
+                            ul {
+                                li {
+                                    a {
+                                        color: $white-5;
+                                    }
+                                }
+                            }
+                        }
+                        &.shopping-cart {
+                            li {
+                                .media {
+                                    .media-body {
+                                        h4 {
+                                            color: $white-3;
+                                            span {
+                                                color: $white-4;
+                                            }
+                                        }
+                                    }
+                                }
+                                .close-circle {
+                                    i {
+                                        &:hover {
+                                            color: $white;
+                                        }
+                                    }
+                                }
+                                .total {
+                                    border-color: $dark-border;
+                                    h5 {
+                                        color: $white-4;
+                                    }
+                                }
+                                .buttons {
+                                    a {
+                                        color: $dark-link;
+                                        &:hover {
+                                            color: $theme-deafult;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .onhover-dropdown {
+        .onhover-show-div {
+            background-color: $dark-top;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+    }
+    .pixelstrap {
+        &.light-font-menu {
+            li {
+                >a {
+                    color: $white-1;
+                }
+            }
+        }
+    }
+    .product-box,
+    .product-wrap {
+        .product-detail,
+        .product-info {
+            h4 {
+                color: $white-3;
+            }
+        }
+    }
+    .table {
+        tbody {
+            +tbody {
+                border-color: $dark-border;
+            }
+        }
+        thead {
+            th {
+                border-color: $dark-border;
+            }
+        }
+    }
+    .table {
+        th,
+        td {
+            border-color: $dark-border;
+        }
+    }
+    .dashboard {
+        .box-head {
+            h2 {
+                color: $white-1;
+            }
+        }
+        .box {
+            .box-title {
+                border-color: $dark-border;
+                h3 {
+                    color: $white-2;
+                }
+            }
+        }
+    }
+    .card {
+        background-color: $dark-body;
+        transition: all 0.3s ease;
+        .card-header {
+            border-bottom: 1px solid $dark-border;
+            background-color: $dark-body;
+            transition: all 0.3s ease;
+        }
+    }
+    .user-status {
+        table {
+            thead, tbody {
+                tr {
+                    th, td {
+                        color: $white-5; 
+                    }
+                }
+            }
+        }
+    }
+    .bg-white {
+        background-color: $dark-body !important;
+        transition: all 0.3s ease;
+    }
+    .product-box,
+    .product-wrap {
+        .img-wrapper {
+            .cart-box {
+                background-color: $dark-body;
+                transition: all 0.3s ease;
+                box-shadow: none;
+            }
+        }
+    }
+    .product-right {
+        .product-title {
+            color: $white-5;
+        }
+        .timer {
+            background-color: $dark-top;
+            transition: all 0.3s ease;
+            p {
+                color: $white-5;
+            }
+        }
+        .size-box {
+            ul {
+                li {
+                    background-color: $dark-body;
+                    transition: all 0.3s ease;
+                    border-color: $dark-border;
+                    &.active {
+                        background-color: $dark-top;
+                        transition: all 0.3s ease;
+                    }
+                    a {
+                        color: $dark-link;
+                    }
+                }
+            }
+        }
+        h4 {
+            del {
+                color: $dark-span;
+            }
+        }
+    }
+    .timer {
+        span {
+            .timer-cal {
+                color: $dark-span;
+            }
+        }
+    }
+    .qty-box {
+        .input-group {
+            span {
+                button {
+                    background: $dark-body !important;
+                    border-color: $dark-border;
+                }
+            }
+            button {
+                i {
+                    color: $dark-span;
+                }
+            }
+        }
+    }
+    .nav-tabs {
+        border-color: $dark-border;
+        .nav-link {
+            &.active {
+                background-color: $dark-body;
+                transition: all 0.3s ease;
+            }
+        }
+    }
+    .product-related {
+        h2 {
+            border-color: $dark-border;
+        }
+    }
+    button {
+        &.close {
+            color: $white;
+        }
+    }
+    .modal-content {
+        background-color: $dark-top;
+    }
+    .modal-header {
+        border-color: $dark-border;
+    }
+    .tab-border {
+        border-color: $dark-border;
+    }
+    .blog-bg {
+        background-color: $dark-border;
+        transition: all 0.3s ease;
+    }
+    &.tools-bg {
+        background-color: $dark-body;
+        transition: all 0.3s ease;
+        section {
+            background-color: $dark-body;
+            transition: all 0.3s ease;
+        }
+    }
+    .category-tools {
+        .category-m {
+            .category-wrapper {
+                background-color: $dark-top;
+                transition: all 0.3s ease;
+            }
+        }
+    }
+    .category-m {
+        .category-wrapper {
+            border-color: $dark-border;
+            h4 {
+                color: $white-3;
+            }
+            .category-link {
+                li {
+                    a {
+                        color: $dark-link;
+                    }
+                }
+            }
+        }
+    }
+    .darken-layout {
+        background-color: $dark-top;
+        transition: all 0.3s ease;
+        p {
+            color: $white-5;
+        }
+        .sub-title {
+            .contact-list {
+                li {
+                    color: $white-5;
+                }
+                i {
+                    color: $white-5;
+                }
+            }
+        }
+    }
+    .bg-grey {
+        background-color: $dark-top;
+        transition: all 0.3s ease;
+    }
+    .review-page {
+        .comnt-sec {
+            li {
+                a {
+                    color: $dark-link;
+                }
+            }
+        }
+    }
+    .sitemap_page {
+        ul {
+            li {
+                a {
+                    color: $dark-link;
+                    &:hover {
+                        color: $theme-deafult;
+                    }
+                }
+            }
+            ul {
+                li {
+                    a {
+                        color: $white-4;
+                    }
+                }
+            }
+        }
+    }
+}
