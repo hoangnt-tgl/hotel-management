@@ -83,15 +83,14 @@
 </template>
 
 <script>
-const {BASE_URL} =  require('../../config')
+const { BASE_URL } = require("../../config");
 export default {
-  components: {},
   data() {
     return {
       // type: "password",
       showPassword: false,
-      username: "admin",
-      password: "19072000",
+      username: "admin@gmail.com",
+      password: "Admin1234@",
       submitted: false,
     };
   },
@@ -99,14 +98,14 @@ export default {
     // reset login status for JWT
   },
   computed: {
-    typePasswd(){
-      if (this.showPassword){
-        return 'text'
+    typePasswd() {
+      if (this.showPassword) {
+        return "text";
       } else {
-        return 'password'
+        return "password";
       }
-      // return 
-    }
+      // return
+    },
   },
   methods: {
     handleSubmit() {
@@ -115,36 +114,36 @@ export default {
     login() {
       this.submitted = true;
       if (this.email != "" && this.password != "") {
-        this.$http.post(`${BASE_URL}/user/login`, {
+        this.$http
+          .post(`${BASE_URL}/user/login`, {
             username: this.username,
-            password: this.password
-        })
-        .then(res=> {
-            if(res.data.success && (res.data.role == 'admin' || res.data.role == 'staff')){
-              localStorage.setItem('token', res.data.access_token)
-              localStorage.setItem('userinfo', res.data.userinfo) 
-              this.$toasted.show("succesfully loged in", {
+            password: this.password,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              localStorage.setItem("token", res.data.access_token);
+              localStorage.setItem("user", res.data.id);
+              this.$toasted.show(res.data.message, {
                 theme: "bubble",
                 position: "top-right",
                 type: "success",
-                duration: 2000
-              });    
-              this.$router.push("/");  
-            } else {
-              if (res.data.success) {res.data.message = 'You are not admin'}
-              this.$toasted.show("Oops..." + res.data.message, {
-                theme: "bubble",
-                position: "bottom-right",
-                type: "error",
-                duration: 2000
+                duration: 2000,
               });
+              this.$router.push("/");
+            } else {
+              this.$toasted.show(res.data.message, {
+              theme: "bubble",
+              position: "bottom-right",
+              type: "error",
+              duration: 2000,
+            });
             }
-        })
-        .catch(function (error) {
-            console.log('error', error);
-        });
+          })
+          .catch(function (error) {
+            console.error(error)
+          });
       }
-    }
-  }
+    },
+  },
 };
 </script>

@@ -143,6 +143,9 @@ export default {
     };
   },
   methods: {
+    handleSubmit() {
+      this.submitted = true;
+    },
     register() {
       // this.submitted = true;
       if (
@@ -157,13 +160,27 @@ export default {
             password: this.password,
             username: this.username,
           })
-          .then((response) => {
-            this.items = response.data;
+          .then((res) => {
+            console.log(res.data)
+            if (res.data.success) {
+              this.$toasted.show(res.data.msg, {
+                theme: "bubble",
+                position: "top-right",
+                type: "success",
+                duration: 2000,
+              });
+            } else {
+              this.$toasted.show(res.data.msg, {
+                theme: "bubble",
+                position: "top-right",
+                type: "error",
+                duration: 2000,
+              });
+            }
           })
           .catch(function (error) {
-            console.error("error", error);
+            console.error(error);
           });
-        alert("ok");
       }
       //  let data = {
       //    username: this.username,

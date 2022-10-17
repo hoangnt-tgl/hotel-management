@@ -5,7 +5,7 @@
             <div class="page-header-left">
               <h3>
                 {{title}}
-                <small>Admin panel</small>
+                <!-- <small>Admin panel</small> -->
               </h3>
             </div>
           </div>

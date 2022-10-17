@@ -2,7 +2,7 @@
   <div>
     <div class="container-fluid">
       <div class="page-header">
-        <Breadcrumbs main="Users" title="User Lists" />
+        <Breadcrumbs main="Room" title="List Room" />
       </div>
     </div>
     <div class="container-fluid">
@@ -10,7 +10,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h5>Product List</h5>
+              <h5>Room List</h5>
             </div>
             <div class="card-body">
               <div class="row justify-content-end">
@@ -18,8 +18,8 @@
                   <b-button class="btn-popup pull-right">Create User</b-button >
                 </router-link> -->
 
-                <router-link to="/add-product" class="col-auto">
-                  <b-button class="btn-popup pull-right">Create Product</b-button >
+                <router-link to="/add-room" class="col-auto">
+                  <b-button class="btn-popup pull-right">Create Room</b-button>
                 </router-link>
               </div>
               <b-row>
@@ -35,7 +35,12 @@
                     ></b-form-select>
                   </b-form-group>
                 </b-col>
-                <b-col class="offset-xl-6 offset-lg-2 search-rs" xl="3" lg="5" md="6">
+                <b-col
+                  class="offset-xl-6 offset-lg-2 search-rs"
+                  xl="3"
+                  lg="5"
+                  md="6"
+                >
                   <b-form-group
                     label-cols="3"
                     label="Search"
@@ -99,14 +104,14 @@
                   <template #cell(images)="field">
                     <img
                       height="50px"
-                      :src="getImgUrl(field.item.images[0].src)"
+                      :src="getImgUrl(field.item.room_image)"
                       width="50px"
                     />
                   </template>
                   <template v-slot:cell(actions)="{ item }">
                     <router-link
-                      style="font-size: 20px; color: blue;"
-                      :to="'/edit-user/'+item._id"
+                      style="font-size: 20px; color: blue"
+                      :to="'/edit-room/' + item.room_id"
                     >
                       <feather
                         type="edit-2"
@@ -117,9 +122,6 @@
                         stroke-linejoin="round"
                       ></feather>
                     </router-link>
-
-                    
-                
                   </template>
                   <template #cell(status) v-for="(item, index) in items">
                     <feather
@@ -170,23 +172,25 @@
 </template>
 
 <script>
-const {BASE_URL} =  require('../../config')
+const { BASE_URL } = require("../../config");
 
 export default {
-
   data() {
     return {
       items: [],
       tablefields: [
+        { key: "delete" },
         { key: "images", label: "Image", sortable: false },
-        { key: "title", label: "Name", sortable: true, editable: true },
-        { key: "brand", label: "Brand", sortable: true, editable: true },
-        { key: "category", label: "Category", sortable: true, editable: true },
-        { key: "discount", label: "Discount", sortable: true, editable: true },
-        { key: "price", label: "Price", sortable: true, editable: true },
-        { key: "stock", label: "Quantity", sortable: true, editable: true },
-        { key: "status", label: "Status", sortable: true, editable: true },
-        { key: "actions"},
+        { key: "room_type", label: "Type", sortable: true, editable: true },
+        {
+          key: "room_quantity",
+          label: "Quantity",
+          sortable: true,
+          editable: true,
+        },
+        { key: "room_price", label: "Price", sortable: true, editable: true },
+        // { key: "room_description", label: "Description", sortable: true, editable: true },
+        { key: "actions" },
       ],
       filter: null,
       totalRows: 1,
@@ -194,21 +198,22 @@ export default {
       perPage: 10,
       pageOptions: [5, 10, 15, 50],
       selectMode: "multi",
-      selected: []
+      selected: [],
     };
   },
   created() {
-    
-    this.$http.get(`${BASE_URL}/product/getall`, {
-      token: ""
-    })
-      .then(response => {
-        this.items = response.data
+    this.$http
+      .get(`${BASE_URL}/room/getallroom`, {
+        headers: {
+          Authorization: `Basic ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        this.items = response.data;
       })
       .catch(function (error) {
-        console.log('error', error);
+        console.log("error", error);
       });
-
   },
   mounted() {
     // Set the initial number of items
@@ -218,31 +223,31 @@ export default {
     sortOptions() {
       // Create an options list from our fields
       return this.tablefields
-        .filter(f => f.sortable)
-        .map(f => {
+        .filter((f) => f.sortable)
+        .map((f) => {
           return { text: f.label, value: f.key };
         });
     },
     selectedRows() {
-      return this.items.filter(item => item.delete);
-    }
+      return this.items.filter((item) => item.delete);
+    },
   },
   methods: {
     deleteSelected(item) {
-      let objIndex = this.selected.findIndex((obj => obj == item._id));
+      let objIndex = this.selected.findIndex((obj) => obj == item.room_id);
       if (objIndex > -1) {
         this.selected.splice(objIndex, 1);
       } else {
-        this.selected.push(item._id)
+        this.selected.push(item.room_id);
       }
     },
     getImgUrl(path) {
-      return require("@/assets/images/pro3/" + path);
+      return `${BASE_URL}/images/${path}`;
     },
     rowSelected(item) {
-      this.selected = item._id;
+      this.selected = item.room_id;
       if (item[0]) {
-        this.edit = this.edit !== item[0]._id ? item[0]._id : null;
+        this.edit = this.edit !== item[0].room_id ? item[0].room_id : null;
       }
     },
     onFiltered(filteredItems) {
@@ -251,56 +256,67 @@ export default {
       this.currentPage = 1;
     },
     deleteRow() {
-      for (var i = this.items.length - 1; i >= 0; i--) {
-        for (var j = 0; j < this.selected.length; j++) {
-          if (this.items[i] && (this.items[i]._id === this.selected[j])) {
-            this.items.splice(i, 1);
+      this.$http
+        .post(
+          `${BASE_URL}/room/delete`,
+          {
+            selected: this.selected,
+          },
+          {
+            headers: {
+              Authorization: `Basic ${localStorage.getItem("token")}`,
+            },
           }
-        }
-      }
-      // this.$http.post(`${BASE_URL}/user/delete`, {
-      //     token: "",
-      //     selected: selected
-      // })
-      // .then(response => {
-      //     if(response.data.success){
-
-      //     }
-      // })
-      // .catch(function (error) {
-      //     console.log('error', error);
-      // });
+        )
+        .then((response) => {
+          for (var i = this.items.length - 1; i >= 0; i--) {
+            for (var j = 0; j < this.selected.length; j++) {
+              if (this.items[i] && this.items[i].room_id === this.selected[j]) {
+                this.items.splice(i, 1);
+              }
+            }
+          }
+          this.$toasted.show("Successful", {
+            theme: "bubble",
+            position: "top-right",
+            type: "success",
+            duration: 2000,
+          });
+        })
+        .catch(function (error) {
+          console.log("error", error);
+        });
     },
     deleteBatchRow() {
       for (var i = 0; i < this.selected.length; i++) {
-        if (this.items[i]._id == this.selected[i]) {
+        if (this.items[i].room_id == this.selected[i]) {
           this.items.splice(this.items[i], 1);
         }
       }
-      console.log(-1)
     },
     showMsgBoxTwo() {
-      this.$bvModal.msgBoxConfirm('Are you sure!', {
-        title: 'Confirmation',
-        size: 'md',
-        buttonSize: 'sm',
-        okVariant: 'primary',
-        okTitle: 'YES',
-        cancelTitle: 'CANCLE',
-        footerClass: 'p-2',
-        hideHeaderClose: false,
-        // centered: true
-      })
-        .then(value => {
+      this.$bvModal
+        .msgBoxConfirm("Are you sure!", {
+          title: "Confirmation",
+          size: "md",
+          buttonSize: "sm",
+          okVariant: "primary",
+          okTitle: "YES",
+          cancelTitle: "CANCLE",
+          footerClass: "p-2",
+          hideHeaderClose: false,
+          // centered: true
+        })
+        .then((value) => {
           if (value) {
             this.deleteRow();
             this.selected = [];
           }
         })
-        .catch(err => {
+        .catch((err) => {
           // An error occurred
-        })
-    }
-  }
+        });
+    },
+  },
 };
 </script>

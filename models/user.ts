@@ -35,19 +35,13 @@ export class User {
         this.phone = phone
         this.password = password
     }
-    createUser = function (newCustommer: User, callback: any) {
+    createUser = function (newCustomer: User, callback: any) {
         bcrypt.genSalt(10, function (err:any, salt:any) {
-            bcrypt.hash(newCustommer.password, salt, function (err:any, hash:string) {
-                // var token = jwt.sign({
-                //     email: newCustommer.email,
-                //     type: newCustommer.admin
-                // }, SECRET, {
-                //     algorithm: 'HS256',
-                //     expiresIn: 604800 // 1 week
-                // });
-                newCustommer.password = hash;
-                var sql = `INSERT INTO users (user_email, user_fname, user_lname, user_dob, user_phone, user_password, user_admin) 
-                VALUES ('${newCustommer.email}', '${newCustommer.fname}', '${newCustommer.lname}', '${newCustommer.dob}', '${newCustommer.phone}', '${newCustommer.password}', '${newCustommer.admin}');`
+            bcrypt.hash(newCustomer.password, salt, function (err:any, hash:string) {
+              
+                newCustomer.password = hash;
+                var sql = `INSERT INTO users (user_email, user_fname, user_lname, user_password, user_admin) 
+                VALUES ('${newCustomer.email}', '${newCustomer.fname}', '${newCustomer.lname}', '${newCustomer.password}', '${newCustomer.admin}');`
                 db.connectDB(function (err:any, connect:any) {
                     if (err) callback(err, null)
                     else {
@@ -126,7 +120,7 @@ var checkToken = function (token:string) {
     return new Promise((resolve, reject) => {
         jwt.verify(token, SECRET, function (err:any, decoded:any) {
             if (err) {
-                resolve(false);
+                reject(err);
             }
             else {
                 resolve(decoded);
@@ -142,10 +136,12 @@ module.exports.checkLogin = async function (req:any, res:any, next:any) {
         });
     }
     else {
-        if (!await checkToken(req.headers.authorization.split(" ")[1])) {
-            res.status(401).json({ auth: false, message: 'Failed to authenticate token.' });
-        } else {
+        try {
+            var decode = await checkToken(req.headers.authorization.split(" ")[1])
+            req.user = decode
             next();
+        } catch(err) {
+            res.status(401).json({ auth: false, message: 'Failed to authenticate token.' });
         }
     }
 }
@@ -157,28 +153,24 @@ module.exports.comparePassword = function (candidatePassword:string, hash:string
         callback(null, isMatch);
     });
 }
-// module.exports.updateUserStatus = function (id, status, callback) {
-//     var query = { _id: id };
-//     var update = { status: status };
-//     User.findOneAndUpdate(query, update, callback);
-// }
-// module.exports.updateUser = function (id, update, callback) {
-//     var query = { _id: id };
-//     User.findOneAndUpdate(query, update, callback);
-// }
-// module.exports.updateUserPassword = function (id, password, callback) {
-//     var query = { _id: id };
-//     bcrypt.genSalt(10, function (err, salt) {
-//         bcrypt.hash(password, salt, function (err, hash) {
-//             var update = { password: hash };
-//             User.findOneAndUpdate(query, update, callback);
-//         });
-//     });
-// }
-// module.exports.deleteUser = function (selected, callback) {
-//     var query = { _id: { $in: selected } };
-//     User.deleteMany(query, callback);
-// }
+
+module.exports.deleteUser = function (selected:Array<any>, callback:any) {
+    var sql1 = `DELETE FROM reservations WHERE user_id IN ( ${selected.join()} );`
+    var sql2 = `DELETE FROM users WHERE user_id IN ( ${selected.join()} );`
+    db.connectDB(function (err: any, connect: any) {
+        if (err) callback(err, null)
+        else {
+            connect.query(sql1, function(err:any, result:any){
+                if (err) callback(err, null)
+                else {
+                    connect.query(sql2, callback)
+                    db.disconnectDB(connect)
+                }
+            })
+            
+        }
+    })
+}
 
 
 

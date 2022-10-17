@@ -1,19 +1,34 @@
 {
     "data": [
-        {   "title": "Dashboard", 
-            "icon": "home", 
-            "type": "link", 
-            "path": "/dashboard",
-            "active": false 
+        {
+            "title": "Home",
+            "icon": "home",
+            "type": "link",
+            "path": "/home",
+            "active": false
         },
         {
-            "title": "Products",
+            "title": "Booking",
+            "icon": "shopping-bag",
+            "type": "link",
+            "path": "/reservation-list"
+        },
+        {
+            "title": "Rooms",
             "icon": "box",
             "type": "sub",
             "active": false,
             "children": [
-                { "path": "/product-list", "title": "Product List", "type": "link" },
-                { "path": "/add-product", "title": "Add Product", "type": "link" }
+                {
+                    "path": "/room-list",
+                    "title": "Room List",
+                    "type": "link"
+                },
+                {
+                    "path": "/add-room",
+                    "title": "Add Room",
+                    "type": "link"
+                }
             ]
         },
         {
@@ -22,38 +37,16 @@
             "type": "sub",
             "active": false,
             "children": [
-                { "path": "/user-list", "title": "User List", "type": "link" },
-                { "path": "/create-user", "title": "Create User", "type": "link" }
-            ]
-        },
-        {
-            "title": "Coupans",
-            "icon": "tag",
-            "type": "sub",
-            "active": false,
-            "children": [
-                { "path": "/coupan-list", "title": "Coupans List", "type": "link" },
-                { "path": "/create-coupan", "title": "Create Coupans", "type": "link" }
-            ]
-        },
-        {
-            "title": "Orders",
-            "icon": "shopping-bag",
-            "type": "sub",
-            "active": false,
-            "children": [
-                { "path": "/order-list", "title": "Orders List", "type": "link" },
-                { "path": "/create-order", "title": "Create Orders", "type": "link" }
-            ]
-        },
-        {
-            "title": "Settings",
-            "icon": "settings",
-            "type": "sub",
-            "active": false,
-            "children": [
-                { "path": "/profile", "title": "Profile", "type": "link" },
-                { "path": "/adit-profile", "title": "Edit Profile", "type": "link" }
+                {
+                    "path": "/user-list",
+                    "title": "User List",
+                    "type": "link"
+                },
+                {
+                    "path": "/create-user",
+                    "title": "Create User",
+                    "type": "link"
+                }
             ]
         },
         {

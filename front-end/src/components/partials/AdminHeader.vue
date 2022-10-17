@@ -5,7 +5,7 @@
       <div class="main-header-left d-lg-none">
         <div class="logo-wrapper">
           <router-link to="/dashboard">
-            <h4 class="my-2 mx-5" style='fontSize: 1.6rem;'>EVALLEY</h4>
+            <h4 class="my-2 mx-5" style='fontSize: 1.6rem;'>Hotel</h4>
           </router-link>
         </div>
       </div>
@@ -141,7 +141,7 @@ export default {
       }
     },
     logout: function() {
-      localStorage.removeItem('token')
+      localStorage.clear();
       window.location.reload()
     },
     handleResize() {

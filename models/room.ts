@@ -35,8 +35,18 @@ export class Room {
         })
     }
 }
-module.exports.getAllAvailableRoom = function (check_in_date: string, check_out_date: string, callback: any) {
-    var sql = `SELECT r.room_id, r.room_image, r.room_type, r.room_description, r.room_price, COUNT(re.room_id) as availablequantity, r.room_quantity FROM HotelReservation.rooms r LEFT JOIN HotelReservation.reservations re ON re.room_id = r.room_id AND re.check_in_date <= ${check_out_date} AND re.check_out_date >= ${check_in_date} GROUP BY r.room_id;`
+// COALESCE(SUM(re.amount, 0)) as available
+module.exports.getAllAvailableRoom = function (startdate: string, enddate: string, callback: any) {
+    var sql = ''
+    if (enddate == ''){
+        sql = `SELECT r.*, (r.room_quantity - IFNULL(nt.booked, 0)) as available FROM rooms r LEFT JOIN (
+            SELECT r.room_id, SUM(re.amount) as booked FROM rooms r LEFT JOIN reservations re ON (r.room_id = re.room_id) WHERE ((re.check_out_date IS NULL AND re.check_in_date = '${startdate}') OR (re.check_out_date IS NOT NULL AND re.check_in_date <= '${startdate}' AND re.check_out_date >= '${startdate}')) GROUP BY r.room_id
+            ) nt ON r.room_id = nt.room_id GROUP BY r.room_id`
+    } else {
+        sql = `SELECT r.*, (r.room_quantity - IFNULL(nt.booked, 0)) as available FROM rooms r LEFT JOIN (
+            SELECT r.room_id, SUM(re.amount) as booked FROM rooms r LEFT JOIN reservations re ON (r.room_id = re.room_id) WHERE ((re.check_out_date IS NULL AND re.check_in_date >= '${startdate}' AND re.check_in_date <= '${enddate}') OR (re.check_out_date IS NOT NULL AND re.check_in_date <= '${enddate}' AND re.check_out_date >= '${startdate}')) GROUP BY r.room_id
+            ) nt ON r.room_id = nt.room_id GROUP BY r.room_id`
+    }
     db.connectDB(function (err: any, connect: any) {
         if (err) callback(err, null)
         else {
@@ -56,9 +66,9 @@ module.exports.getAllRoom = function (callback: any) {
         }
     })
 }
-module.exports.deteteRoom = function (id: number, callback: any) {
-    var sql1 = `DELETE FROM reservations WHERE (room_id = ${id});`
-    var sql2 = `DELETE FROM rooms WHERE (room_id = ${id});`
+module.exports.deteteRoom = function (selected:Array<any>, callback: any) {
+    var sql1 = `DELETE FROM reservations WHERE room_id IN ( ${selected.join()} );`
+    var sql2 = `DELETE FROM rooms WHERE room_id IN ( ${selected.join()} );`
     db.connectDB(function (err: any, connect: any) {
         if (err) callback(err, null)
         else {

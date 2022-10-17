@@ -7,7 +7,9 @@ import BootstrapVue from 'bootstrap-vue'
 import Breadcrumbs from './components/bread-crumbs.vue'
 import store from './store'
 import Toasted from 'vue-toasted';
+import Vue2Editor from "vue2-editor";
 
+Vue.use(Vue2Editor);
 Vue.prototype.$http = Axios
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);

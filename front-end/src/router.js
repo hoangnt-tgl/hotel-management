@@ -1,20 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Dashboard from './views/Dashboard'
-import Profile from './views/Profile'
-import ProductList from './views/products/ProductList'
-import AddProduct from './views/products/AddProduct'
+import Home from './views/Index.vue'
+import ReservationList from './views/ReservationList'
+import RoomList from './views/rooms/RoomList'
+import AddRoom from './views/rooms/AddRoom'
 import UserList from './views/users/UserList'
+
 import CreateUser from './views/users/CreateUser'
-import CoupanList from './views/coupans/CoupanList'
-import CreateCoupan from './views/coupans/CreateCoupan'
 import Auth from './views/authentication/index'
-import OrderList from './views/orders/OrderList'
-import CreateOrder from './views/orders/CreateOrder'
 Vue.use(Router)
 
 const routes = [
-	{ path: '', redirect: { name: 'dasboard' } },
+	{ path: '', redirect: { name: 'home' } },
 	{
 		path: '/login',
 		name: 'login',
@@ -24,41 +21,34 @@ const routes = [
 		}
 	},
 	{
-		path: '/dashboard',
-		name: 'dasboard',
-		component: Dashboard,
+		path: '/home',
+		name: 'home',
+		component: Home,
 		meta: {
 			layout: 'admin'
 		}
 	},
 	{
-		path: '/profile',
-		name: 'profile',
-		component: Profile,
+		path: '/reservation-list',
+		name: 'reservation-list',
+		component: ReservationList,
+		meta: {
+			layout: 'admin'
+		}
+	},
+
+	{
+		path: '/room-list',
+		name: 'room-list',
+		component: RoomList,
 		meta: {
 			layout: 'admin'
 		}
 	},
 	{
-		path: '/edit-profile',
-		name: 'edit-profile',
-		component: Profile,
-		meta: {
-			layout: 'admin'
-		}
-	},
-	{
-		path: '/product-list',
-		name: 'product-list',
-		component: ProductList,
-		meta: {
-			layout: 'admin'
-		}
-	},
-	{
-		path: '/add-product',
-		name: 'add-product',
-		component: AddProduct,
+		path: '/add-room',
+		name: 'add-room',
+		component: AddRoom,
 		meta: {
 			layout: 'admin'
 		}
@@ -80,39 +70,6 @@ const routes = [
 		}
 	},
 	{
-		path: '/create-Coupan',
-		name: 'create-Coupan',
-		component: CreateCoupan,
-		meta: {
-			layout: 'admin'
-		}
-	},
-	{
-		path: '/coupan-list',
-		name: 'coupan-list',
-		component: CoupanList,
-		meta: {
-			layout: 'admin'
-		}
-	},
-
-	{
-		path: '/order-list',
-		name: 'order-list',
-		component: OrderList,
-		meta: {
-			layout: 'admin'
-		}
-	},
-	{
-		path: '/create-order',
-		name: 'create-order',
-		component: CreateOrder,
-		meta: {
-			layout: 'admin'
-		}
-	},
-	{
 		path: '*',
 		name: 'Error',
 		meta: {
@@ -128,7 +85,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
 	const CurrentUser = localStorage.getItem('token');
-	const path = ['/login', '/register'];
+	const path = ['/login', '/register', '/home'];
 	if (path.includes(to.path) || to.path === "/callback" || CurrentUser) {
 		return next();
 	}
